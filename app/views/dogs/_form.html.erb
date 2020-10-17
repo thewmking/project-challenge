@@ -2,6 +2,7 @@
   <%= f.input :name %>
   <%= f.input :description, as: :text %>
   <%= f.input :image, as: :file %>
+  <%# TODO: add multiple image upload %>
 
   <% if @dog.images.any? %>
     <%= image_tag @dog.images.first %>

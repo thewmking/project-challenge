@@ -7,6 +7,7 @@ class DogsController < ApplicationController
   def index
     @dogs = Dog.order(created_at: :desc).limit(5).offset(@page * 5)
     @dog_count = (Dog.all.count / 5.0).ceil
+    #TODO: add sort by recent likes
   end
 
   # GET /dogs/1
