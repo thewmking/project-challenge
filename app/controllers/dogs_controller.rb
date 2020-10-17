@@ -19,6 +19,7 @@ class DogsController < ApplicationController
 
   # GET /dogs/1/edit
   def edit
+    redirect_to @dog, notice: 'You do not have permission to edit this dog.' if @dog.user_id != current_user.id
   end
 
   # POST /dogs
@@ -44,7 +45,10 @@ class DogsController < ApplicationController
   # PATCH/PUT /dogs/1.json
   def update
     respond_to do |format|
-      if @dog.update(dog_params)
+      if @dog.user_id != current_user.id
+        format.html { redirect_to @dog, notice: 'You do not have permission to update this dog.' }
+        format.json { render json: 'Permission Denied', status: :unauthorized }
+      elsif @dog.update(dog_params)
         @dog.images.attach(params[:dog][:image]) if params[:dog][:image].present?
 
         format.html { redirect_to @dog, notice: 'Dog was successfully updated.' }
