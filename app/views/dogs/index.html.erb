@@ -1,5 +1,10 @@
-<%= render partial: 'thumbnail', collection: @dogs, as: :dog %>
- <%# TODO: render ad after every 2 dogs %>
+<div class="container" style="margin-bottom: 100px;">
+  <div class="row row-cols-1 row-cols-md-3">
+    <%= render partial: 'thumbnail', collection: @dogs, as: :dog %>
+  </div>
+  <%# TODO: render ad after every 2 dogs %>
+</div>
+
 
 <navbar class="navbar fixed-bottom navbar-light bg-light justify-content-center">
   <nav aria-label="Page navigation">

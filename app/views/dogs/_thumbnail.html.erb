@@ -1,7 +1,11 @@
-<a href="<%= url_for(dog) %>">
-  <article>
-    <h2 class="dog-name"><%= dog.name %></h2>
-    <%# TODO: add likes %>
-    <%= image_tag url_for(dog.images.first), class: "dog-photo", alt: "Photo of #{dog.name}" %>
-  </article>
-</a>
+<div class="col mb-6" style="margin-bottom: 10px;">
+  <div class="card h-100" style="width: 20rem; margin-bottom: 5px;">
+    <%= image_tag url_for(dog.images.first), class: "dog-photo card-img-top", alt: "Photo of #{dog.name}" %>
+    <div class="card-body">
+      <h5 class="card-title"><%= dog.name %></h5>
+      <p class="card-text"><%= dog.description %></p>
+      <a href="<%= url_for(dog) %>" class="btn btn-primary">See details</a>
+      <%# TODO: add likes %>
+    </div>
+  </div>
+</div>
