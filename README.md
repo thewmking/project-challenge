@@ -17,3 +17,13 @@ Run the specs with `rspec`
 Run the server with `rails s`
 
 View the site at http://localhost:3000
+
+# Challenge Items
+
+- [ ] Add pagination to index page, to display 5 dogs per page
+- [ ] Add the ability to for a user to input multiple dog images on an edit form or new dog form
+- [ ] Associate dogs with owners
+- [ ] Allow editing only by owner
+- [ ] Allow users to like other dogs (not their own)
+- [ ] Allow sorting the index page by number of likes in the last hour
+- [ ] Display the ad.jpg image (saved at app/assets/images/ad.jpg) after every 2 dogs in the index page, to simulate advertisements in a feed
