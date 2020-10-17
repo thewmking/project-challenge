@@ -22,7 +22,7 @@ View the site at http://localhost:3000
 
 - [ ] Add pagination to index page, to display 5 dogs per page
 - [ ] Add the ability to for a user to input multiple dog images on an edit form or new dog form
-- [ ] Associate dogs with owners
+- [x] Associate dogs with owners
 - [ ] Allow editing only by owner
 - [ ] Allow users to like other dogs (not their own)
 - [ ] Allow sorting the index page by number of likes in the last hour

@@ -49,8 +49,18 @@ dogs = [
   },
 ]
 
+5.times do
+  name = Faker::Name.name
+  u = User.new(
+    name: name,
+    email: Faker::Internet.email(name: name, separators: '.'),
+    password: Faker::Internet.password
+  )
+  u.save!
+end
+
 dogs.each do |dog|
-  dog = Dog.find_or_create_by(name: dog[:name], description: dog[:description])
+  dog = Dog.find_or_create_by!(name: dog[:name], description: dog[:description], user: User.all.sample)
   directory_name = File.join(Rails.root, 'db', 'seed', "#{dog[:name].downcase}", "*")
 
   Dir.glob(directory_name).each do |filename|
