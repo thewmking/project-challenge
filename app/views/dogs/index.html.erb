@@ -1,1 +1,22 @@
 <%= render partial: 'thumbnail', collection: @dogs, as: :dog %>
+
+<navbar class="navbar fixed-bottom navbar-light bg-light justify-content-center">
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <% if @page > 0 %>
+        <li class="page-item"><a class="page-link" href="/dogs?page=<%= @page - 1%>">Previous</a></li>
+      <% end %>
+      <% @dog_count.times do |index| %>
+        <% page = index %>
+        <% klass = "page-item"%>
+        <% klass += " active" if index == @page %>
+        <li class="<%= klass %>">
+          <%= link_to (page + 1).to_s, dogs_path(page: page), class: 'page-link' %>
+        </li>
+      <% end %>
+      <% if @page < @dog_count - 1 %>
+        <li class="page-item"><a class="page-link" href="/dogs?page=<%= @page + 1%>">Next</a></li>
+      <% end %>
+    </ul>
+  </nav>
+</navbar>

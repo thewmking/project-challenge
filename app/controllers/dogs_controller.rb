@@ -1,10 +1,12 @@
 class DogsController < ApplicationController
   before_action :set_dog, only: [:show, :edit, :update, :destroy]
+  before_action :set_page, only: :index
 
   # GET /dogs
   # GET /dogs.json
   def index
-    @dogs = Dog.all
+    @dogs = Dog.order(created_at: :desc).limit(5).offset(@page * 5)
+    @dog_count = (Dog.all.count / 5.0).ceil
   end
 
   # GET /dogs/1
@@ -79,5 +81,9 @@ class DogsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def dog_params
       params.require(:dog).permit(:name, :description, :images)
+    end
+
+    def set_page
+      @page = params[:page].to_i || 0
     end
 end
