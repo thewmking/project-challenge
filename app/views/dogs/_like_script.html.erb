@@ -2,7 +2,6 @@
     var d = {
 
       init: function(){
-        console.log('here we go!');
         if ($('.likes').length === 0){
           return false;
         }
@@ -40,7 +39,6 @@
         var text = ' Like';
         if (parseInt(data.likes) !== 1) { text += 's'; }
         $('#' + data.dog_id+ '-like-count').text(data.likes + text);
-        console.log(method);
         if (method === 'DELETE') {
           var likeBtnHtml = "<button id='like-btn-" + data.dog_id + "' href='#' class='btn btn-info like-btn' data-dog-id='" + data.dog_id + "'>Like</button>"
           $("#unlike-btn-" + data.dog_id).replaceWith(likeBtnHtml);
