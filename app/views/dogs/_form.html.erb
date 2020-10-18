@@ -3,7 +3,6 @@
   <%= f.input :description, as: :text, input_html: { class: 'form-control' } %>
   <hr>
   <%= f.input :images, as: :file, input_html: { multiple: true } %>
-  <%# TODO: add multiple image upload %>
 
   <% if @dog.images.any? %>
     <% @dog.images.each do |image| %>

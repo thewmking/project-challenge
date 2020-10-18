@@ -5,9 +5,26 @@ class DogsController < ApplicationController
   # GET /dogs
   # GET /dogs.json
   def index
-    @dogs = Dog.order(created_at: :desc).limit(5).offset(@page * 5)
+    params[:order] ||= "Created DESC"
+    case params[:order]
+    when "Created ASC"
+      @dogs = Dog.order(created_at: :asc)
+    when "Created DESC"
+      @dogs = Dog.order(created_at: :desc)
+    when "Most Likes"
+      @dogs = Dog.left_joins(:likes).group(:id).order("COUNT(likes.id) DESC")
+    when "Least Likes"
+      @dogs = Dog.left_joins(:likes).group(:id).order("COUNT(likes.id) ASC")
+    when "Most Likes Past Hour"
+      @dogs = Dog.left_joins(:likes).group(:id).order("COUNT(likes.id) DESC").where("likes.created_at >= ?", 1.hour.ago)
+      @dogs = @dogs + Dog.where.not(id: @dogs.pluck(:id))
+    end
+    if @dogs.kind_of?(Array)
+      @dogs = @dogs[(@page * 5)..(@page * 5 + 5)]
+    else
+      @dogs = @dogs.limit(5).offset(@page * 5)
+    end
     @dog_count = (Dog.all.count / 5.0).ceil
-    #TODO: add sort by recent likes
   end
 
   # GET /dogs/1

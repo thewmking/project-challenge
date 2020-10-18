@@ -61,6 +61,11 @@ end
 
 dogs.each do |dog|
   dog = Dog.find_or_create_by!(name: dog[:name], description: dog[:description], user: User.all.sample)
+  10.times do
+    id = rand(1..10)
+    Like.create(user_id: id, dog_id: dog.id)
+  end
+  Like.last(3).each {|l| l.update(created_at: DateTime.current - 2)}
   directory_name = File.join(Rails.root, 'db', 'seed', "#{dog[:name].downcase}", "*")
 
   Dir.glob(directory_name).each do |filename|

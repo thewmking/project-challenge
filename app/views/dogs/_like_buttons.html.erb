@@ -1,5 +1,5 @@
 <span id="<%= dog.id %>-like-count" class="likes"><%= pluralize(dog.likes.count, 'Like') %></span>
-<% if !current_user.owns?(dog.id) %>
+<% if current_user && !current_user.owns?(dog.id) %>
   <% if current_user.likes?(dog.id) %>
     <button id="unlike-btn-<%= dog.id %>" href="#" class="btn btn-secondary unlike-btn" data-dog-id="<%= dog.id %>">Unlike</button>
   <% else %>

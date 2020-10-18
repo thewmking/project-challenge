@@ -1,4 +1,10 @@
 <div class="container" style="margin-bottom: 100px;">
+  <navbar class="navbar navbar-light bg-light">
+    <%= form_with(url: dogs_path, method: :get, local: true, class: 'ml-auto') do |f| %>
+      <%= f.select :order, ["Created ASC", "Created DESC", "Most Likes", "Least Likes", "Most Likes Past Hour"], selected: params[:order], input_html: { class: 'form-control' } %>
+      <%= f.submit "Sort", class: 'btn btn-secondary' %>
+    <% end%>
+  </navbar>
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
     <% @dogs.each_with_index do |dog, index| %>
       <% if index % 2 == 0 && index != 0 %>
@@ -13,18 +19,22 @@
   <nav aria-label="Page navigation">
     <ul class="pagination">
       <% if @page > 0 %>
-        <li class="page-item"><a class="page-link" href="/dogs?page=<%= @page - 1%>">Previous</a></li>
+        <li class="page-item">
+          <%= link_to 'Previous', dogs_path(page: (@page - 1), order: params[:order]), class: 'page-link' %>
+        </li>
       <% end %>
       <% @dog_count.times do |index| %>
         <% page = index %>
         <% klass = "page-item"%>
         <% klass += " active" if index == @page %>
         <li class="<%= klass %>">
-          <%= link_to (page + 1).to_s, dogs_path(page: page), class: 'page-link' %>
+          <%= link_to (page + 1).to_s, dogs_path(page: page, order: params[:order]), class: 'page-link' %>
         </li>
       <% end %>
       <% if @page < @dog_count - 1 %>
-        <li class="page-item"><a class="page-link" href="/dogs?page=<%= @page + 1%>">Next</a></li>
+        <li class="page-item">
+          <%= link_to 'Next', dogs_path(page: (@page + 1), order: params[:order]), class: 'page-link' %>
+        </li>
       <% end %>
     </ul>
   </nav>
