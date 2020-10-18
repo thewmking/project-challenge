@@ -21,7 +21,7 @@ View the site at http://localhost:3000
 # Challenge Items
 
 - [x] Add pagination to index page, to display 5 dogs per page
-- [ ] Add the ability to for a user to input multiple dog images on an edit form or new dog form
+- [x] Add the ability to for a user to input multiple dog images on an edit form or new dog form
 - [x] Associate dogs with owners
 - [x] Allow editing only by owner
 - [x] Allow users to like other dogs (not their own)
