@@ -1,0 +1,55 @@
+<script>
+    var d = {
+
+      init: function(){
+        console.log('here we go!');
+        if ($('.likes').length === 0){
+          return false;
+        }
+        $(document).on('click', '.like-btn', d.createLike);
+        $(document).on('click', '.unlike-btn', d.deleteLike);
+      },
+
+      createLike: function(e){
+        var node = $(e.currentTarget);
+        var dogId = node.data('dog-id');
+        var url = '/likes?dog_id=' + dogId;
+        d.submitRequest(url, 'POST');
+      },
+
+      deleteLike: function(e){
+        var node = $(e.currentTarget);
+        var dogId = node.data('dog-id');
+        var url = '/likes/' + dogId;
+        d.submitRequest(url, 'DELETE');
+      },
+
+      submitRequest: function(url, method){
+        $.ajax({
+          url: url,
+          data: { authenticity_token: $('[name="csrf-token"]')[0].content},
+          type: method,
+          success: function(data){
+            d.updateLikes(data, method);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {}
+        });
+      },
+
+      updateLikes: function(data, method){
+        var text = ' Like';
+        if (parseInt(data.likes) !== 1) { text += 's'; }
+        $('#' + data.dog_id+ '-like-count').text(data.likes + text);
+        console.log(method);
+        if (method === 'DELETE') {
+          var likeBtnHtml = "<button id='like-btn-" + data.dog_id + "' href='#' class='btn btn-info like-btn' data-dog-id='" + data.dog_id + "'>Like</button>"
+          $("#unlike-btn-" + data.dog_id).replaceWith(likeBtnHtml);
+        } else {
+          var unlikeBtnHtml = "<button id='unlike-btn-" + data.dog_id + "' href='#' class='btn btn-secondary unlike-btn' data-dog-id='" + data.dog_id + "'>Unlike</button>"
+          $("#like-btn-" + data.dog_id).replaceWith(unlikeBtnHtml);
+        }
+      }
+    };
+
+    $(document).ready(d.init);
+</script>

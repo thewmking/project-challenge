@@ -5,7 +5,8 @@
       <h5 class="card-title"><%= dog.name %></h5>
       <p class="card-text"><%= dog.description %></p>
       <a href="<%= url_for(dog) %>" class="btn btn-primary">See details</a>
-      <%# TODO: add likes %>
+      <hr>
+      <%= render 'dogs/like_buttons', dog: dog %>
     </div>
   </div>
 </div>

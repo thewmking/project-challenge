@@ -24,6 +24,6 @@ View the site at http://localhost:3000
 - [ ] Add the ability to for a user to input multiple dog images on an edit form or new dog form
 - [x] Associate dogs with owners
 - [x] Allow editing only by owner
-- [ ] Allow users to like other dogs (not their own)
+- [x] Allow users to like other dogs (not their own)
 - [ ] Allow sorting the index page by number of likes in the last hour
 - [x] Display the ad.jpg image (saved at app/assets/images/ad.jpg) after every 2 dogs in the index page, to simulate advertisements in a feed

@@ -1,15 +1,51 @@
-<section>
-  <h2><%= @dog.name %></h2>
-  <%# TODO: add likes %>
-
-  <% @dog.images.each do |image| %>
-    <%= image_tag url_for(image), alt: "Photo of #{@dog.name}" %>
-  <% end %>
-
-  <p><%= @dog.description %></p>
-  <% if current_user && (@dog.user_id == current_user.id) %>
-    <%= link_to "Edit #{@dog.name}'s Profile", edit_dog_path %>
-    <br>
-    <%= link_to "Delete #{@dog.name}'s Profile", dog_path, method: :delete, data: { confirm: 'Are you sure?' } %>
-  <% end %>
+<section class="container">
+  <div class="row">
+    <div class="jumbotron">
+      <h1 class="display-4"><%= @dog.name %></h1>
+      <p class="lead"><%= @dog.description %></p>
+      <p>
+        <%= render 'dogs/like_buttons', dog: @dog %>
+      </p>
+      <hr class="my-4">
+      <p>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <% if @dog.images.count > 1 %>
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+          <% end %>
+          <div class="carousel-inner">
+            <% @dog.images.each_with_index do |image, index| %>
+              <% klass = index > 0 ? 'carousel-item' : 'carousel-item active' %>
+              <div class="<%= klass %>">
+                <%= image_tag url_for(image), alt: "Photo of #{@dog.name}", class: "d-block w-100" %>
+              </div>
+            <% end %>
+          </div>
+          <% if @dog.images.count > 1 %>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          <% end %>
+        </div>
+      </p>
+      <ul class="navbar-nav ml-auto" style="float: right;">
+        <% if current_user && (@dog.user_id == current_user.id) %>
+          <li class="nav-item">
+            <%= link_to "Edit #{@dog.name}'s Profile", edit_dog_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item" style="text-align: end;">
+            <%= link_to "Delete #{@dog.name}'s Profile", dog_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </section>

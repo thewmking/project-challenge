@@ -29,4 +29,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :dogs
+  has_many :likes
+
+  def likes?(dog_id)
+    Like.where(user_id: self.id, dog_id: dog_id).present?
+  end
+
+  def owns?(dog_id)
+    dog_id.in? self.dogs.pluck(:id)
+  end
+
 end
